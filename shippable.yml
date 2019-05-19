@@ -17,4 +17,5 @@ build:
     - hugo
 
   on_success:
+    - rm -rf .git
     - aws s3 sync $SHIPPABLE_BUILD_DIR $AWS_S3_BUCKET --region $AWS_S3_REGION
