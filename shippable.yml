@@ -11,7 +11,7 @@ build:
   # http://docs.shippable.com/ci/shippableyml/#ci
   ci:
     - shippable_retry pip install awscli
-    - shippable_retry apt-get install hugo
+    - shippable_retry snap install hugo --channel=extended
     - hugo
 
   on_success:
