@@ -1,0 +1,18 @@
+language: python
+
+env:
+  global:
+    - secure: GTG7XgR8XHDA/dbUSggUceEqxeb8cAVD3vXz3IpkKJ9ds2HPGgIqJ4PeSQmuDhq86IuKMZF3q2izb41fxIYliQ/C5uCa3KkS+Y4b8eOmLQlsdHqUOGjIC6tB2R59/q3QYxlbF4v3nuyhbpsr7WHcKZXKyTTzDgVehRN2b836sAvvMWQE0VXaFxEEUicaHpkUp2F7OXGp8yYw2lDs2BQJNrPVMrggC8+ONATpo5G7LfP8+moYWFZJjtHAWl/xkQ9aV7F1Zs6drE44bH1LUpoafXMIKXlA7Mtfx/uJGw3UdxGopPEUodean6m0Gj+n7QvuiQ1g7DfykpdZHokQ4Wfi4g==
+    - AWS_S3_BUCKET='s3://com.kittens.www'
+    - AWS_S3_REGION='us-west-1'
+
+build:
+
+  # http://docs.shippable.com/ci/shippableyml/#ci
+  ci:
+    - shippable_retry pip install awscli
+    - shippable_retry apt-get install hugo
+    - hugo
+
+  on_success:
+    - aws s3 sync $SHIPPABLE_BUILD_DIR "s3://bucket_name" --region "us-east-1"
